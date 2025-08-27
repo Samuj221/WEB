@@ -15,7 +15,6 @@ import com.example.myapplication.data.model.Character
 import com.example.myapplication.nav.Route
 import com.example.myapplication.ui.CharactersViewModel
 import com.example.myapplication.ui.screens.CharacterDetailScreen
-import com.example.myapplication.ui.screens.CharacterListScreen
 
 
 class MainActivity : ComponentActivity() {
