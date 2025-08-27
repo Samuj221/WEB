@@ -22,13 +22,8 @@ class MainActivity : ComponentActivity() {
             Surface(color = MaterialTheme.colorScheme.background) {
                 val nav = rememberNavController()
                 val vm: CharactersViewModel = viewModel()
-
-                NavHost(
-                    navController = nav,
-                    startDestination = Route.List.route
-                ) {
+                NavHost(navController = nav, startDestination = Route.List.route) {
                     composable(Route.List.route) {
-                        // Llamada totalmente calificada (evita el import roto)
                         com.example.myapplication.ui.screens.CharacterListScreen(
                             state = vm.state,
                             onClick = { c -> nav.navigate(Route.Detail.pass(c)) }
@@ -40,8 +35,6 @@ class MainActivity : ComponentActivity() {
                     ) { backStack ->
                         val encoded = backStack.arguments!!.getString("character")!!
                         val c: Character = Route.Detail.read(encoded)
-
-                        // Llamada totalmente calificada
                         com.example.myapplication.ui.screens.CharacterDetailScreen(character = c)
                     }
                 }

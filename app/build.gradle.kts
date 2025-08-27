@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")       //  requerido con Kotlin 2.0
+    id("org.jetbrains.kotlin.plugin.compose")      // Requerido con Kotlin 2.0+
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
@@ -21,38 +21,59 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
+    // Java / Kotlin 17
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
 
+    // Compose
     buildFeatures { compose = true }
-
-    // ❌ Con el plugin de Compose NO uses composeOptions ni pongas versión del compiler.
-    // composeOptions { kotlinCompilerExtensionVersion = "..." }  <-- borra este bloque si lo tienes
+    // ⚠️ No usar composeOptions con Kotlin 2.0 + plugin compose.
 }
 
 dependencies {
+    implementation("com.google.android.material:material:1.12.0")
+
+    // Compose BOM (gestiona versiones de los artefactos Compose)
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    implementation("androidx.compose.foundation:foundation") // NECESARIA para stickyHeader
-    implementation("androidx.compose.material3:material3")
+
+    // Compose UI
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
+    // Foundation (stickyHeader está aquí)
+    implementation("androidx.compose.foundation:foundation")
+
+    // Activity + Navigation + ViewModel (Compose)
+    implementation("androidx.activity:activity-compose:1.9.1")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+
+    // Imágenes
     implementation("io.coil-kt:coil-compose:2.6.0")
 
-    // Ktor + serialization (lo que ya tienes)
+    // Ktor + JSON (para llamadas a la API y serialización)
     implementation("io.ktor:ktor-client-android:2.3.12")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-}
 
+    // Core Android
+    implementation("androidx.core:core-ktx:1.13.1")
+
+    // Tests
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+}

@@ -17,28 +17,17 @@ import com.example.myapplication.data.model.Character
 @Composable
 fun CharacterDetailScreen(character: Character) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
+        modifier = Modifier.fillMaxSize().padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
             model = character.image,
             contentDescription = null,
-            modifier = Modifier
-                .size(160.dp)
-                .clip(CircleShape)
+            modifier = Modifier.size(160.dp).clip(CircleShape)
         )
-
         Spacer(Modifier.height(16.dp))
-
-        Text(
-            text = character.name,
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
-        )
-
+        Text(character.name, style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold))
         Spacer(Modifier.height(8.dp))
-
         ElevatedCard(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("ID: ${character.id}")
