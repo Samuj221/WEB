@@ -14,37 +14,35 @@ import androidx.navigation.navArgument
 import com.example.myapplication.data.model.Character
 import com.example.myapplication.nav.Route
 import com.example.myapplication.ui.CharactersViewModel
-import com.example.myapplication.ui.screens.CharacterDetailScreen
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Puedes envolver con tu tema si tienes uno (e.g., MyApplicationTheme { ... })
-            MaterialTheme {
-                Surface(color = MaterialTheme.colorScheme.background) {
-                    val nav = rememberNavController()
-                    val vm: CharactersViewModel = viewModel()
+            Surface(color = MaterialTheme.colorScheme.background) {
+                val nav = rememberNavController()
+                val vm: CharactersViewModel = viewModel()
 
-                    NavHost(
-                        navController = nav,
-                        startDestination = Route.List.route
-                    ) {
-                        composable(Route.List.route) {
-                            CharacterListScreen(
-                                state = vm.state,
-                                onClick = { c -> nav.navigate(Route.Detail.pass(c)) }
-                            )
-                        }
-                        composable(
-                            route = Route.Detail.route,
-                            arguments = listOf(navArgument("character") { type = NavType.StringType })
-                        ) { backStack ->
-                            val encoded = backStack.arguments!!.getString("character")!!
-                            val c: Character = Route.Detail.read(encoded)
-                            CharacterDetailScreen(character = c)
-                        }
+                NavHost(
+                    navController = nav,
+                    startDestination = Route.List.route
+                ) {
+                    composable(Route.List.route) {
+                        // Llamada totalmente calificada (evita el import roto)
+                        com.example.myapplication.ui.screens.CharacterListScreen(
+                            state = vm.state,
+                            onClick = { c -> nav.navigate(Route.Detail.pass(c)) }
+                        )
+                    }
+                    composable(
+                        route = Route.Detail.route,
+                        arguments = listOf(navArgument("character") { type = NavType.StringType })
+                    ) { backStack ->
+                        val encoded = backStack.arguments!!.getString("character")!!
+                        val c: Character = Route.Detail.read(encoded)
+
+                        // Llamada totalmente calificada
+                        com.example.myapplication.ui.screens.CharacterDetailScreen(character = c)
                     }
                 }
             }
