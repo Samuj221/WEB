@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")      // Requerido con Kotlin 2.0+
+    id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
@@ -37,7 +37,7 @@ android {
 
     // Compose
     buildFeatures { compose = true }
-    // ⚠️ No usar composeOptions con Kotlin 2.0 + plugin compose.
+
 }
 
 dependencies {

@@ -64,7 +64,7 @@ fun CharacterListScreen(
                             )
                         },
                         modifier = Modifier
-                            .clickable { onClick(c) } // tap en el resto del item → detalle
+                            .clickable { onClick(c) }
                             .padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                     Divider()
