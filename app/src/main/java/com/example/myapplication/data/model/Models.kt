@@ -3,24 +3,13 @@ package com.example.myapplication.data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiResponse(
-    val info: Info,
-    val results: List<Character>
-)
+data class ApiResponse(val info: Info, val results: List<Character>)
 
 @Serializable
-data class Info(
-    val count: Int,
-    val pages: Int,
-    val next: String? = null,
-    val prev: String? = null
-)
+data class Info(val count: Int, val pages: Int, val next: String? = null, val prev: String? = null)
 
 @Serializable
-data class NamedUrl(
-    val name: String,
-    val url: String
-)
+data class NamedUrl(val name: String, val url: String)
 
 @Serializable
 data class Character(

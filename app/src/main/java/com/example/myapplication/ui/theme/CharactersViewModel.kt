@@ -1,14 +1,13 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication.ui
 
-
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.repo.CharactersRepository
-import com.example.myapplication.data.model.Character
-import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.model.Character
+import com.example.myapplication.data.repo.CharactersRepository
+import kotlinx.coroutines.launch
 
 data class CharactersState(
     val isLoading: Boolean = true,
@@ -19,7 +18,6 @@ data class CharactersState(
 
 class CharactersViewModel : ViewModel() {
     private val repo = CharactersRepository()
-
     var state by mutableStateOf(CharactersState())
         private set
 
@@ -30,11 +28,7 @@ class CharactersViewModel : ViewModel() {
             try {
                 state = state.copy(isLoading = true, error = null)
                 val resp = repo.fetchOnce()
-                state = CharactersState(
-                    isLoading = false,
-                    total = resp.info.count,
-                    list = resp.results
-                )
+                state = CharactersState(false, resp.info.count, resp.results, null)
             } catch (e: Exception) {
                 state = state.copy(isLoading = false, error = e.message ?: "Error")
             }

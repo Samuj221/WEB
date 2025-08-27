@@ -5,14 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.stickyHeader
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.shape.CircleShape
 import coil.compose.AsyncImage
 import com.example.myapplication.data.model.Character
 import com.example.myapplication.ui.CharactersState
@@ -50,7 +49,7 @@ fun CharacterListScreen(
                         )
                     },
                     modifier = Modifier
-                        .clickable { onClick(c) }   // <-- aquí llamas a la “ruta”
+                        .clickable { onClick(c) }
                         .padding(horizontal = 8.dp, vertical = 4.dp)
                 )
                 Divider()
